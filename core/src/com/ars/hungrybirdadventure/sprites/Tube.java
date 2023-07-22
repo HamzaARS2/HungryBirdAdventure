@@ -11,10 +11,9 @@ import com.badlogic.gdx.math.Vector3;
 import java.util.Random;
 
 public class Tube {
-
     public static int TUBES_SPACING = WIDTH / 2;
-    public static int TUBES_COUNT;
-    private final int gap = 180;
+    public static final int TUBES_COUNT = 4;
+    private final int gap = 300;
     private int groundHeight;
     private final Texture topTube, botTube;
     private final Vector3 topTubePos, botTubePos;
@@ -22,19 +21,16 @@ public class Tube {
     private final Random random;
     private final Rectangle topTubeBounds, botTubeBounds;
 
-    public Tube(float groundHeight) {
+    public Tube(float groundHeight, int tubeNum) {
         this.groundHeight = (int) groundHeight;
-        TUBES_COUNT++;
         random = new Random();
-        velocity = 150;
+        velocity = 180;
         topTube = new Texture(Gdx.files.internal("blue_pipe.png"));
         botTube = topTube;
-        topTubePos = new Vector3(WIDTH + (TUBES_COUNT * TUBES_SPACING) ,HEIGHT - topTube.getHeight() - random.nextInt(HEIGHT - topTube.getHeight() - gap  - this.groundHeight), 0);
-        botTubePos = new Vector3(WIDTH + (TUBES_COUNT * TUBES_SPACING) ,topTubePos.y - gap , 0);
+        topTubePos = new Vector3(WIDTH + (tubeNum * TUBES_SPACING) ,getRandomTubeY(), 0);
+        botTubePos = new Vector3(WIDTH + (tubeNum * TUBES_SPACING) ,topTubePos.y - gap , 0);
         topTubeBounds = new Rectangle(topTubePos.x, topTubePos.y, topTube.getWidth(), topTube.getHeight());
         botTubeBounds = new Rectangle(botTubePos.x, botTubePos.y, botTube.getWidth(), botTube.getHeight());
-        System.out.println("top :" +topTubePos.y);
-        System.out.println("bot :" +botTubePos.y);
     }
 
     public Rectangle getTopTubeBounds() {
@@ -45,26 +41,35 @@ public class Tube {
         return botTubeBounds;
     }
 
-    public void update(float dt) {
+    public boolean update(float dt) {
         topTubePos.x -= velocity * dt;
         botTubePos.x -= velocity * dt;
         topTubeBounds.x = topTubePos.x;
         botTubeBounds.x = botTubePos.x;
-        if (topTubePos.x + topTube.getWidth() < 0)
+        if (topTubePos.x + topTube.getWidth() < 0) {
             reposition();
+            return true;
+        }
+        return false;
     }
 
     public void reposition() {
-        topTubePos.set((TUBES_COUNT * TUBES_SPACING) - topTube.getWidth() , HEIGHT / 2f, 0);
+        topTubePos.set((TUBES_COUNT * TUBES_SPACING) - topTube.getWidth() , getRandomTubeY(), 0);
         botTubePos.set((TUBES_COUNT * TUBES_SPACING) - topTube.getWidth(), topTubePos.y - gap, 0);
         topTubeBounds.x = topTubePos.x;
         botTubeBounds.x = botTubePos.x;
         topTubeBounds.y = topTubePos.y;
         botTubeBounds.y = botTubePos.y;
-        System.out.println("x :" +topTubePos.x);
+    }
+
+    private int getRandomTubeY() {
+        return HEIGHT - topTube.getHeight() - random.nextInt(HEIGHT - topTube.getHeight() - gap  - this.groundHeight);
     }
 
 
+    public int getGap() {
+        return gap;
+    }
 
     public Vector3 getBotTubePos() {
         return botTubePos;

@@ -1,11 +1,9 @@
 package com.ars.hungrybirdadventure;
 
 import com.ars.hungrybirdadventure.screens.MainMenuScreen;
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 public class HungryBirdGame extends Game {
 	public SpriteBatch batch;
@@ -26,5 +24,6 @@ public class HungryBirdGame extends Game {
 	@Override
 	public void dispose () {
 		batch.dispose();
+		font.dispose();
 	}
 }

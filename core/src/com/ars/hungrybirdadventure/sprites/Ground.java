@@ -2,6 +2,7 @@ package com.ars.hungrybirdadventure.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 public class Ground {
@@ -11,7 +12,7 @@ public class Ground {
 
     public Ground(float x) {
         ground = new Texture(Gdx.files.internal("ground.png"));
-        velocity = 150;
+        velocity = 180;
         position = new Vector3(x,0,0);
     }
 
@@ -19,7 +20,9 @@ public class Ground {
         position.x -= velocity * dt;
         if (position.x < -ground.getWidth())
             position.x = 0;
+
     }
+
 
     public Texture getTexture() {
         return ground;
