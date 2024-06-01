@@ -17,4 +17,4 @@ Hungry Bird Adventure is a simple game developed for Android devices using the L
 [Hungry Bird Adventure on Google Play Store](https://bit.ly/3yThiZF)
 
 **Feedback:**
-We value your feedback! If you have any suggestions or encounter any issues, please feel free to [contact us](mailto:hungrybird@example.com).
+We value your feedback! If you have any suggestions or encounter any issues, please feel free to [contact us](mailto:hamza1arrastec@gmail.com).
